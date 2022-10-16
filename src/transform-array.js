@@ -13,9 +13,32 @@ const { NotImplementedError } = require('../extensions/index.js');
  * transform([1, 2, 3, '--discard-prev', 4, 5]) => [1, 2, 4, 5]
  * 
  */
-function transform(/* arr */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+ function transform(arr) {
+	if(!Array.isArray(arr))throw new Error("'arr' parameter must be an instance of the Array!");
+	let newArr = [].concat(arr);
+	
+	let next = "--double-next";
+	let last = "--double-prev";
+
+	let deleteNext = "--discard-next";
+	let deleteLast = "--discard-prev";
+
+	for(let i = 0; i < newArr.length; i++){
+		if(newArr[i] == next) {
+			if(newArr[i+1]) newArr.splice(i,1,newArr[i+1]);
+		} else if(newArr[i] == last) {
+			if(newArr[i-1]) newArr.splice(i, 1, newArr[i-1]);
+		} else if(newArr[i] == deleteNext) {
+			if(newArr[i+1] && (typeof(newArr[i+1])!== next || typeof(newArr[i+1])!== last || typeof(newArr[i+1])!== deleteNext || typeof(newArr[i+1])!== deleteLast)){
+				newArr.splice(i+1,1);
+			} 
+		} else if(newArr[i] == deleteLast) {
+			if(newArr[i-1] && ((typeof(newArr[i-1])!== next || typeof(newArr[i-1])!== last || typeof(newArr[i-1])!== deleteNext || typeof(newArr[i-1])!== deleteLast))){
+				newArr.splice(i-1,1);
+			}
+		}
+	}	
+	return newArr.filter(x=> typeof(x)!=="string");
 }
 
 module.exports = {
