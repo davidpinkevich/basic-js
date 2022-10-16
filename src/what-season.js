@@ -12,9 +12,10 @@ const { NotImplementedError } = require('../extensions/index.js');
  * 
  */
  function getSeason(date) {
-	if(!(date instanceof Date) || typeof(date) === "string" || typeof(date)=="number") throw new Error("Invalid date!");
-
-	let data = date.getMonth();
+	if (!date) return "Unable to determine the time of year!";
+	if (!(date instanceof Date)) throw new Error("Invalid date!");
+	if (Object.entries(date).length) throw new Error("Invalid date!");
+	let data = Number(date.getMonth());
 	if(data === 0 || data === 1 || data === 11) return "winter";
 	if(data === 2 || data === 3 || data === 4) return "spring";
 	if(data === 5 || data === 6 || data === 7) return "summer";
