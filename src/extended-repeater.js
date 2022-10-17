@@ -17,12 +17,22 @@ const { NotImplementedError } = require('../extensions/index.js');
  */
  function repeater(str, options) {
 	let arr = [];
-	let miniArr = [str];
+	let miniArr = [];
+	if (str == null){
+		miniArr = ["null"];
+	} else { 
+		miniArr = [String(str)];
+	}
+	
 	let secondArr =[];
 	if(options.hasOwnProperty("addition")) {
 		let count = options.additionRepeatTimes;
 		for(let i = 0; i <count; i++){
-			secondArr.push(options.addition);
+			if(options.addition == null){
+				secondArr.push("null");
+			} else{
+				secondArr.push(String(options.addition));
+			}
 		}
 	} 
 	if(options.hasOwnProperty("additionSeparator")){
